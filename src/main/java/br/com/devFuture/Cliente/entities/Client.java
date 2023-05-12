@@ -21,7 +21,7 @@ import java.util.UUID;
 @Builder
 @Table(name = "tb_cliente")
 @Entity
-public class Cliente {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,18 +31,18 @@ public class Cliente {
     private String name;
 
     @Column(nullable = false)
-    private Integer idade;
+    private Integer age;
 
     @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
-    private String endereco;
+    private String Address;
 
     @Column(nullable = false)
     private String cpf;
 
     @Column(nullable = false)
-    private String telefone;
+    private String Telephone;
 
 }
