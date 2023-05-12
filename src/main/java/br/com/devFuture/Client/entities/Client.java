@@ -1,4 +1,4 @@
-package br.com.devFuture.Cliente.entities;
+package br.com.devFuture.Client.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,13 +14,12 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+@Entity
+@Table(name = "tb_client")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Table(name = "tb_cliente")
-@Entity
 public class Client {
 
     @Id
@@ -31,18 +30,18 @@ public class Client {
     private String name;
 
     @Column(nullable = false)
-    private Integer age;
-
-    @Column(nullable = false)
     private String email;
-
-    @Column(nullable = false)
-    private String Address;
 
     @Column(nullable = false)
     private String cpf;
 
     @Column(nullable = false)
-    private String Telephone;
+    private Integer age;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
+    private String telephone;
 
 }

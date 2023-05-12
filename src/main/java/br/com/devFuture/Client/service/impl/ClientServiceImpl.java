@@ -1,8 +1,8 @@
-package br.com.devFuture.Cliente.service.impl;
+package br.com.devFuture.Client.service.impl;
 
-import br.com.devFuture.Cliente.entities.Client;
-import br.com.devFuture.Cliente.repository.ClientRepository;
-import br.com.devFuture.Cliente.service.ClientService;
+import br.com.devFuture.Client.entities.Client;
+import br.com.devFuture.Client.repository.ClientRepository;
+import br.com.devFuture.Client.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

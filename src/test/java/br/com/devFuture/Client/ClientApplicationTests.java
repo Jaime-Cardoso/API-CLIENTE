@@ -1,4 +1,4 @@
-package br.com.devFuture.Cliente;
+package br.com.devFuture.Client;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
