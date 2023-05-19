@@ -8,10 +8,9 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      properties.hibernate.show_sql: true
-      properties.hibernate.format_sql: true
-      ddl-auto: update
+    properties.hibernate.show_sql: true
+    properties.hibernate.format_sql: true
+    hibernate.ddl-auto: update
 
   h2:
     console:
