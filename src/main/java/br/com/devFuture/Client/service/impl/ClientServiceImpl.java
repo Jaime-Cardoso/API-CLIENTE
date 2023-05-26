@@ -1,5 +1,8 @@
 package br.com.devFuture.Client.service.impl;
 
+import br.com.devFuture.Client.converter.ClientConverter;
+import br.com.devFuture.Client.dto.request.NewClientRequestDto;
+import br.com.devFuture.Client.dto.response.ClientResponseDto;
 import br.com.devFuture.Client.entities.Client;
 import br.com.devFuture.Client.repository.ClientRepository;
 import br.com.devFuture.Client.service.ClientService;
@@ -18,8 +21,10 @@ public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
 
     @Override
-    public Client create(Client client) {
-        return clientRepository.save(client);
+    public ClientResponseDto create(NewClientRequestDto newClientRequestDto) {
+        Client client = ClientConverter.toClient(newClientRequestDto);
+        clientRepository.save(client);
+        return ClientConverter.toClientResponseDto(client);
     }
 
     @Override

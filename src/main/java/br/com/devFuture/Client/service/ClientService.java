@@ -1,5 +1,7 @@
 package br.com.devFuture.Client.service;
 
+import br.com.devFuture.Client.dto.request.NewClientRequestDto;
+import br.com.devFuture.Client.dto.response.ClientResponseDto;
 import br.com.devFuture.Client.entities.Client;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +10,7 @@ import java.util.UUID;
 
 public interface ClientService {
 
-    Client create(Client client);
+    ClientResponseDto create(NewClientRequestDto newClientRequestDto);
 
     Page<Client> consult(Pageable pageable);
 

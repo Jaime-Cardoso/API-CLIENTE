@@ -1,5 +1,7 @@
 package br.com.devFuture.Client.controller;
 
+import br.com.devFuture.Client.dto.request.NewClientRequestDto;
+import br.com.devFuture.Client.dto.response.ClientResponseDto;
 import br.com.devFuture.Client.entities.Client;
 import br.com.devFuture.Client.service.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +28,8 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Client criar(@RequestBody Client client) {
-        return clientService.create(client);
+    public ClientResponseDto criar(@RequestBody NewClientRequestDto newClientRequestDto) {
+        return clientService.create(newClientRequestDto);
     }
     @GetMapping("/consult")
     public Page<Client> consult(Pageable pageable) {
