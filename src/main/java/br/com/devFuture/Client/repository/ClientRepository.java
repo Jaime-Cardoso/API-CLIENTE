@@ -14,4 +14,8 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
     Optional<Client> findByCpf(String cpf);
 
     void deleteByCpf(String cpf);
+
+    void deleteByEmail(String email);
+
+    void deleteByUuid(UUID uuid);
 }

@@ -1,5 +1,6 @@
 package br.com.devFuture.Client.service;
 
+import br.com.devFuture.Client.dto.request.ClientPutRequestDto;
 import br.com.devFuture.Client.dto.request.NewClientRequestDto;
 import br.com.devFuture.Client.dto.response.ClientResponseDto;
 import br.com.devFuture.Client.entities.Client;
@@ -12,7 +13,7 @@ public interface ClientService {
 
     ClientResponseDto create(NewClientRequestDto newClientRequestDto);
 
-    Page<Client> consult(Pageable pageable);
+    Page<ClientResponseDto> consult(Pageable pageable);
 
     Client consultByUuid(UUID uuid);
 
@@ -20,5 +21,15 @@ public interface ClientService {
 
     Client consultByCpf(String cpf);
 
-    void deleteByEmail(String cpf);
+    void deleteByEmail(String email);
+
+    void deleteByCpf(String cpf);
+
+    void deleteByUuid(UUID uuid);
+
+    ClientResponseDto updateByCpf(ClientPutRequestDto clientPutRequestDto, String cpf);
+
+    ClientResponseDto updateByEmail(ClientPutRequestDto clientPutRequestDto, String email);
+
+    ClientResponseDto updateByUuid(ClientPutRequestDto clientPutRequestDto, UUID uuid);
 }
