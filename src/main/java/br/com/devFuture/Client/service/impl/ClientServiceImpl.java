@@ -4,13 +4,16 @@ import br.com.devFuture.Client.converter.ClientConverter;
 import br.com.devFuture.Client.dto.request.ClientPutRequestDto;
 import br.com.devFuture.Client.dto.request.NewClientRequestDto;
 import br.com.devFuture.Client.dto.response.ClientResponseDto;
+import br.com.devFuture.Client.dto.response.PageDto;
 import br.com.devFuture.Client.entities.Client;
 import br.com.devFuture.Client.repository.ClientRepository;
 import br.com.devFuture.Client.service.ClientService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -29,33 +32,43 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Page<ClientResponseDto> consult(Pageable pageable) {
-        Page<Client> clientPage = clientRepository.findAll(pageable);
-        return clientPage.map(ClientConverter::toClientResponseDto);
+    public PageDto<ClientResponseDto> consult(Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("email"));
+
+        final Page<Client> clientPage = clientRepository.findAll(pageRequest);
+
+        return ClientConverter.toClientePageResponseDto(clientPage);
     }
 
     @Override
-    public Client consultByUuid(UUID uuid) {
-        return clientRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Client not found id" + uuid));
+    public ClientResponseDto consultByUuid(UUID uuid) {
+        Client cliente = clientRepository.findById(uuid)
+                .orElseThrow(() -> new RuntimeException("Client not found by uuid: " + uuid));
+        return ClientConverter.toClientResponseDto(cliente);
     }
 
     @Override
-    public Client consultByEmail(String email) {
-        return clientRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Client not found by email" + email));
+    public ClientResponseDto consultByEmail(String email) {
+        Client cliente = clientRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Client not found by email: " + email));
+        return ClientConverter.toClientResponseDto(cliente);
     }
 
     @Override
-    public Client consultByCpf(String cpf) {
-        return clientRepository.findByCpf(cpf).orElseThrow(() -> new RuntimeException("Client not found by cpf" + cpf));
-    }
-    public ClientResponseDto updateByUuid(ClientPutRequestDto clientPutRequestDto, UUID uuid){
+    public ClientResponseDto consultByCpf(String cpf) {
+        Client cliente = clientRepository.findByCpf(cpf)
+                .orElseThrow(() -> new RuntimeException("Client not found by cpf: " + cpf));
+        return ClientConverter.toClientResponseDto(cliente);    }
+
+    public ClientResponseDto updateByUuid(ClientPutRequestDto clientPutRequestDto, UUID uuid) {
         Client saveClient = clientRepository.findById(uuid)
                 .orElseThrow(() -> new RuntimeException("Cliente não existe"));
         checkUpdateData(clientPutRequestDto, saveClient);
         clientRepository.save(saveClient);
         return ClientConverter.toClientResponseDto(saveClient);
     }
-    public ClientResponseDto updateByCpf(ClientPutRequestDto clientPutRequestDto, String cpf){
+
+    public ClientResponseDto updateByCpf(ClientPutRequestDto clientPutRequestDto, String cpf) {
         Client saveClient = clientRepository.findByCpf(cpf)
                 .orElseThrow(() -> new RuntimeException("Cliente não existe"));
         checkUpdateData(clientPutRequestDto, saveClient);
@@ -63,7 +76,7 @@ public class ClientServiceImpl implements ClientService {
         return ClientConverter.toClientResponseDto(saveClient);
     }
 
-    public ClientResponseDto updateByEmail(ClientPutRequestDto clientPutRequestDto, String email){
+    public ClientResponseDto updateByEmail(ClientPutRequestDto clientPutRequestDto, String email) {
         Client saveClient = clientRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Cliente não existe"));
         checkUpdateData(clientPutRequestDto, saveClient);

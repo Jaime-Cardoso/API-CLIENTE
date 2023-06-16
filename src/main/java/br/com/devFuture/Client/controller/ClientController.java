@@ -3,7 +3,7 @@ package br.com.devFuture.Client.controller;
 import br.com.devFuture.Client.dto.request.ClientPutRequestDto;
 import br.com.devFuture.Client.dto.request.NewClientRequestDto;
 import br.com.devFuture.Client.dto.response.ClientResponseDto;
-import br.com.devFuture.Client.entities.Client;
+import br.com.devFuture.Client.dto.response.PageDto;
 import br.com.devFuture.Client.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,55 +30,65 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ClientResponseDto criar(@RequestBody NewClientRequestDto newClientRequestDto) {
+    public ClientResponseDto create(@RequestBody NewClientRequestDto newClientRequestDto) {
         return clientService.create(newClientRequestDto);
     }
+
     @GetMapping("/consult")
-    public Page<ClientResponseDto> consult(Pageable pageable) {
+    public PageDto<ClientResponseDto> consult(Pageable pageable) {
         return clientService.consult(pageable);
     }
+
     @GetMapping("/uuid/{uuid}")
-    public Client consultbyUuid(@PathVariable("uuid") UUID uuid) {
+    public ClientResponseDto consultbyUuid(@PathVariable("uuid") UUID uuid) {
         return clientService.consultByUuid(uuid);
     }
+
     @GetMapping("/cpf/{cpf}")
     @ResponseStatus(HttpStatus.OK)
-    public Client consultbyCpf(@PathVariable("cpf") String cpf) {
+    public ClientResponseDto consultbyCpf(@PathVariable("cpf") String cpf) {
         return clientService.consultByCpf(cpf);
     }
+
     @GetMapping("/email/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public Client consultbyEmail(@PathVariable("email") String email) {
+    public ClientResponseDto consultbyEmail(@PathVariable("email") String email) {
         return clientService.consultByEmail(email);
     }
+
     @DeleteMapping("/cpf/{cpf}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByCpf(@PathVariable("cpf") String cpf) {
         clientService.deleteByCpf(cpf);
     }
+
     @DeleteMapping("/uuid/{uuid}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByUuid(@PathVariable("uuid") UUID uuid) {
         clientService.deleteByUuid(uuid);
     }
+
     @DeleteMapping("/email/{email}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByEmail(@PathVariable("email") String email) {
         clientService.deleteByEmail(email);
     }
+
     @PutMapping("/uuid/{uuid}")
     @ResponseStatus(HttpStatus.OK)
-    public ClientResponseDto updateByUuid(@RequestBody ClientPutRequestDto clientPutRequestDto, @PathVariable("uuid") UUID uuid){
+    public ClientResponseDto updateByUuid(@RequestBody ClientPutRequestDto clientPutRequestDto, @PathVariable("uuid") UUID uuid) {
         return clientService.updateByUuid(clientPutRequestDto, uuid);
     }
+
     @PutMapping("/email/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public ClientResponseDto updateByEmail(@RequestBody ClientPutRequestDto clientPutRequestDto,@PathVariable("email") String email){
+    public ClientResponseDto updateByEmail(@RequestBody ClientPutRequestDto clientPutRequestDto, @PathVariable("email") String email) {
         return clientService.updateByEmail(clientPutRequestDto, email);
     }
+
     @PutMapping("/cpf/{cpf}")
     @ResponseStatus(HttpStatus.OK)
-    public ClientResponseDto updateByCpf(@RequestBody ClientPutRequestDto clientPutRequestDto,@PathVariable("cpf") String cpf){
+    public ClientResponseDto updateByCpf(@RequestBody ClientPutRequestDto clientPutRequestDto, @PathVariable("cpf") String cpf) {
         return clientService.updateByCpf(clientPutRequestDto, cpf);
     }
 }

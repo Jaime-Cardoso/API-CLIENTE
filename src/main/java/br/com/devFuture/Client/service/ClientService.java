@@ -3,6 +3,7 @@ package br.com.devFuture.Client.service;
 import br.com.devFuture.Client.dto.request.ClientPutRequestDto;
 import br.com.devFuture.Client.dto.request.NewClientRequestDto;
 import br.com.devFuture.Client.dto.response.ClientResponseDto;
+import br.com.devFuture.Client.dto.response.PageDto;
 import br.com.devFuture.Client.entities.Client;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,13 +14,13 @@ public interface ClientService {
 
     ClientResponseDto create(NewClientRequestDto newClientRequestDto);
 
-    Page<ClientResponseDto> consult(Pageable pageable);
+    PageDto<ClientResponseDto> consult(Pageable pageable);
 
-    Client consultByUuid(UUID uuid);
+    ClientResponseDto consultByUuid(UUID uuid);
 
-    Client consultByEmail(String email);
+    ClientResponseDto consultByEmail(String email);
 
-    Client consultByCpf(String cpf);
+    ClientResponseDto consultByCpf(String cpf);
 
     void deleteByEmail(String email);
 
