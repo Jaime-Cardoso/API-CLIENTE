@@ -15,6 +15,6 @@ public class ClientResponseDto {
     private String email;
     private String cpf;
     private Integer age;
-    private String address;
+    private AddressResponseDto address;
     private String telephone;
 }

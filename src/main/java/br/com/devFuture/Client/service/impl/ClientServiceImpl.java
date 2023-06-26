@@ -87,7 +87,6 @@ public class ClientServiceImpl implements ClientService {
     private void checkUpdateData(ClientPutRequestDto clientePutRequestDto, Client saveClient) {
         saveClient.setName(clientePutRequestDto.getName() == null ? saveClient.getName() : clientePutRequestDto.getName());
         saveClient.setTelephone(clientePutRequestDto.getTelephone() == null ? saveClient.getTelephone() : clientePutRequestDto.getTelephone());
-        saveClient.setAddress(clientePutRequestDto.getAddress() == null ? saveClient.getAddress() : clientePutRequestDto.getAddress());
         saveClient.setEmail(clientePutRequestDto.getEmail() == null ? saveClient.getEmail() : clientePutRequestDto.getEmail());
         clientRepository.save(saveClient);
     }

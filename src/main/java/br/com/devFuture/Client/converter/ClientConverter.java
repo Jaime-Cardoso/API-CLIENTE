@@ -1,9 +1,11 @@
 package br.com.devFuture.Client.converter;
 
 import br.com.devFuture.Client.dto.request.NewClientRequestDto;
+import br.com.devFuture.Client.dto.response.AddressResponseDto;
 import br.com.devFuture.Client.dto.response.ClientResponseDto;
 import br.com.devFuture.Client.dto.response.CustomPage;
 import br.com.devFuture.Client.dto.response.PageDto;
+import br.com.devFuture.Client.entities.Address;
 import br.com.devFuture.Client.entities.Client;
 import org.springframework.data.domain.Page;
 
@@ -19,7 +21,13 @@ public class ClientConverter {
                 .cpf(newClientRequestDto.getCpf())
                 .telephone(newClientRequestDto.getTelephone())
                 .age(newClientRequestDto.getAge())
-                .address(newClientRequestDto.getAddress())
+                .address(Address.builder()
+                        .cep(newClientRequestDto.getAddress().getBairro())
+                        .logradouro(newClientRequestDto.getAddress().getLogradouro())
+                        .localidade(newClientRequestDto.getAddress().getLocalidade())
+                        .bairro(newClientRequestDto.getAddress().getBairro())
+                        .uf(newClientRequestDto.getAddress().getUf())
+                        .build())
                 .build();
     }
 
@@ -30,7 +38,13 @@ public class ClientConverter {
                 .cpf(client.getCpf())
                 .telephone(client.getTelephone())
                 .age(client.getAge())
-                .address(client.getAddress())
+                .address(AddressResponseDto.builder()
+                        .cep(client.getAddress().getBairro())
+                        .logradouro(client.getAddress().getLogradouro())
+                        .localidade(client.getAddress().getLocalidade())
+                        .bairro(client.getAddress().getBairro())
+                        .uf(client.getAddress().getUf())
+                        .build())
                 .build();
     }
     public static PageDto<ClientResponseDto> toClientePageResponseDto(Page<Client> clientePage) {
@@ -41,7 +55,13 @@ public class ClientConverter {
                 .map(client -> ClientResponseDto.builder()
                         .name(client.getName())
                         .cpf(client.getCpf())
-                        .address(client.getAddress())
+                        .address(AddressResponseDto.builder()
+                                .cep(client.getAddress().getBairro())
+                                .logradouro(client.getAddress().getLogradouro())
+                                .localidade(client.getAddress().getLocalidade())
+                                .bairro(client.getAddress().getBairro())
+                                .uf(client.getAddress().getUf())
+                                .build())
                         .email(client.getEmail())
                         .telephone(client.getTelephone())
                         .build()).collect(Collectors.toList());

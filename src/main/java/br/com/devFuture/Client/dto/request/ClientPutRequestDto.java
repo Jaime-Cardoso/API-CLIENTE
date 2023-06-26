@@ -13,6 +13,6 @@ public class ClientPutRequestDto {
 
     private String name;
     private String email;
-    private String address;
+    private AddressRequestDto address;
     private String telephone;
 }

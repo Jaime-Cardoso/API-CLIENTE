@@ -15,6 +15,6 @@ public class NewClientRequestDto {
     private String email;
     private String cpf;
     private Integer age;
-    private String address;
+    private AddressRequestDto address;
     private String telephone;
 }
